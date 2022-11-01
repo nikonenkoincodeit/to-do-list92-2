@@ -1,6 +1,6 @@
-export function createLi(input) {
-  return `<li class="item " data-id="1667218254464">
-        <p class="text">${input}</p>
+export function createLi({ value, checked, id } = {}) {
+  return `<li class="item ${checked ? "checked" : ""}" data-id="${id}">
+        <p class="text">${value}</p>
         <button type="button" class="button">x</button>
       </li>`;
 }
