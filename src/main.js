@@ -68,3 +68,16 @@ function onDellBtnClick(e) {
     updateToLS(dataItemsArr);
   }
 }
+liAdd.addEventListener("click", handleChecked);
+function handleChecked(e) {
+  if (e.target.nodeName === "P") {
+    const id = e.target.closest(".item").dataset.id;
+    dataItemsArr.forEach((item) => {
+      if (item.id === Number(id)) {
+        item.checked = !item.checked;
+        e.target.closest(".item").classList.toggle("checked");
+        updateToLS(dataItemsArr);
+      }
+    });
+  }
+}
