@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 import { inputValue, liAdd } from "./refs";
 import { createLi, addNewLi } from "./markup";
-import { addData, getData } from "./api";
+import { addData, getData, updateData } from "./api";
 
 const LOCAL_STORAGE_KEY = "todo-list";
 
@@ -50,8 +50,13 @@ function onDellBtnClick(e) {
   }
 }
 liAdd.addEventListener("click", handleChecked);
+
 function handleChecked(e) {
   if (e.target.nodeName === "P") {
+    const result = e.target.classList.toggle("checked");
+
     const id = e.target.closest(".item").dataset.id;
+
+    updateData({ checked: result }, id).then(console.log);
   }
 }

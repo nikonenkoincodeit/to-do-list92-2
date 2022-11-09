@@ -20,3 +20,16 @@ export function getData() {
     return response.json();
   });
 }
+
+export function updateData(data, id) {
+  return fetch(`${BASE_URL}/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.json();
+  });
+}

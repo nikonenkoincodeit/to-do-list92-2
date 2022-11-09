@@ -2,7 +2,7 @@
   "task": [
     {
       "value": "buy milk",
-      "checked": false,
+      "checked": true,
       "id": 1
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "value": "dog",
-      "checked": false,
+      "checked": true,
       "id": 3
     },
     {
