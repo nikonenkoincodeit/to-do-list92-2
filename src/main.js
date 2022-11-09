@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 import { inputValue, liAdd } from "./refs";
 import { createLi, addNewLi } from "./markup";
+import { addData } from "./api";
 
 const LOCAL_STORAGE_KEY = "todo-list";
 let dataItemsArr = getFromLocalStorage(LOCAL_STORAGE_KEY);
@@ -15,10 +16,12 @@ inputValue.addEventListener("submit", (event) => {
 
   const dataObj = createObjData(eventValue);
 
-  saveToLocalStorage(dataObj);
+  // saveToLocalStorage(dataObj);
+  addData(dataObj).then((data) => {
+    const markup = createLi(data);
+    addNewLi(liAdd, markup);
+  });
 
-  const markup = createLi(dataObj);
-  addNewLi(liAdd, markup);
   console.log(eventValue);
 
   event.target.reset();
@@ -37,7 +40,6 @@ function createObjData(string) {
   return {
     value: string,
     checked: false,
-    id: Date.now(),
   };
 }
 
