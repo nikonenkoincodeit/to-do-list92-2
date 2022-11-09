@@ -4,6 +4,21 @@
       "value": "buy milk",
       "checked": false,
       "id": 1
+    },
+    {
+      "value": "my cat",
+      "checked": false,
+      "id": 2
+    },
+    {
+      "value": "dog",
+      "checked": false,
+      "id": 3
+    },
+    {
+      "value": "rouse",
+      "checked": false,
+      "id": 4
     }
   ]
 }
