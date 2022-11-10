@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 import { inputValue, liAdd } from "./refs";
 import { createLi, addNewLi } from "./markup";
-import { addData, getData, updateData } from "./api";
+import { addData, getData, updateData, deleteData } from "./api";
 
 const LOCAL_STORAGE_KEY = "todo-list";
 
@@ -45,9 +45,19 @@ liAdd.addEventListener("click", onDellBtnClick);
 
 function onDellBtnClick(e) {
   if (e.target.nodeName === "BUTTON") {
+
     const btnId = e.target.closest(".item").dataset.id;
-    e.target.closest(".item").remove();
+    deleteData(btnId)
+    .then(data => {
+      e.target.closest(".item").remove();
+      console.log(data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+   
   }
+
 }
 liAdd.addEventListener("click", handleChecked);
 
@@ -60,3 +70,4 @@ function handleChecked(e) {
     updateData({ checked: result }, id).then(console.log);
   }
 }
+
