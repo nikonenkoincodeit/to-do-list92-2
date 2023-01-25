@@ -5,7 +5,7 @@ export function saveData(data) {
   items.push(data);
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(items));
 }
-function getData() {
+export function getData() {
   try {
     const dataJson = localStorage.getItem(LOCALSTORAGE_KEY);
     return dataJson ? JSON.parse(dataJson) : [];
