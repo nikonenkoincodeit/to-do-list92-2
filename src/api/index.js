@@ -1,18 +1,33 @@
-const LOCALSTORAGE_KEY = "items";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, get, set, remove, update } from "firebase/database";
 
-export function saveData(data) {
-  const items = getData();
-  items.push(data);
-  saveArrData(items);
+import { firebaseConfig } from "../config";
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+
+export function removeItemToFirebase(id) {
+  remove(ref(db, "tasks/" + id), null);
 }
-export function saveArrData(item) {
-  localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(item));
+
+export function updateStatus(id, value) {
+  update(ref(db, "tasks/" + id), { checked: value });
 }
+
+export function writeUserData(data = {}) {
+  set(ref(db, "tasks/" + data.id), data);
+}
+
 export function getData() {
-  try {
-    const dataJson = localStorage.getItem(LOCALSTORAGE_KEY);
-    return dataJson ? JSON.parse(dataJson) : [];
-  } catch (error) {
-    console.log("ERROR");
-  }
+  return get(ref(db, `tasks`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        return [];
+      }
+    })
+    .catch((error) => {
+      console.error("error ", error);
+    });
 }

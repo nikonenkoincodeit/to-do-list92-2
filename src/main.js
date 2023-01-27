@@ -1,5 +1,10 @@
 import { formEl, listEl } from "./refs";
-import { saveData, saveArrData, getData } from "./api";
+import {
+  removeItemToFirebase,
+  getData,
+  writeUserData,
+  updateStatus,
+} from "./api";
 import { createMarkup } from "./markup";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,7 +18,7 @@ function onSubmit(event) {
   const dataObj = createObjData(message);
   const markup = createMarkup([dataObj]);
   addMarkup(markup);
-  saveData(dataObj);
+  writeUserData(dataObj);
   event.target.reset();
 }
 
@@ -26,10 +31,12 @@ function createObjData(task) {
 }
 
 function init() {
-  const tasks = getData();
-  if (!tasks.length) return;
-  const markup = createMarkup(tasks);
-  addMarkup(markup);
+  getData().then((res) => {
+    const result = Object.values(res);
+    if (!result.length) return;
+    const markup = createMarkup(result);
+    addMarkup(markup);
+  });
 }
 init();
 function addMarkup(markup) {
@@ -41,23 +48,16 @@ function removeTask(event) {
   if (!event.target.classList.contains("button")) return;
   const { parentEl, taskId } = getIdParent(event);
   parentEl.remove();
-  const dataArr = getData();
-  const filteredArr = dataArr.filter((el) => {
-    return el.id !== +taskId;
-  });
-  saveArrData(filteredArr);
+
+  removeItemToFirebase(taskId);
 }
 listEl.addEventListener("click", toggleTask);
 function toggleTask(event) {
   if (!event.target.classList.contains("text")) return;
   const { parentEl, taskId } = getIdParent(event);
-  parentEl.classList.toggle("checked");
-  const dataArr = getData();
-  const tasked = dataArr.find((el) => {
-    return el.id === +taskId;
-  });
-  tasked.checked = !tasked.checked;
-  saveArrData(dataArr);
+  const status = parentEl.classList.toggle("checked");
+
+  updateStatus(taskId, status);
 }
 function getIdParent(event) {
   const parentEl = event.target.closest(".item");
