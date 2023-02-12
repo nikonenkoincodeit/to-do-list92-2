@@ -1,6 +1,8 @@
 import { formEl } from "./refs";
+import { onSaveLocalStorage } from "./api"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
+
 
 formEl.addEventListener("submit", onFormSubmit);
 
@@ -12,4 +14,10 @@ function onFormSubmit(evt) {
     return;
   }
   evt.target.reset();
+  const newObj = objFactory(value);
+  onSaveLocalStorage(newObj);
+}
+
+function objFactory(value) {
+  return {value, id: Date.now(), chacked: false};
 }
