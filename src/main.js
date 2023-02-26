@@ -1,10 +1,27 @@
 import { formEl, listEl } from "./refs";
-import { onSaveLocalStorage, onGetData } from "./api";
+import { onSaveLocalStorage, onGetData, saveData } from "./api";
 import { createMarkup } from "./markup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 
 formEl.addEventListener("submit", onFormSubmit);
+listEl.addEventListener("click", deleteTask);
+
+function deleteTask(evt) {
+  if (evt.target.tagName !== "BUTTON") {
+    return;
+  }
+  const parent = evt.target.closest(".item");
+  // console.log(parent);
+  const taskId = parent.dataset.id;
+  // console.log(taskId);
+  parent.remove();
+  const tasks = onGetData().filter(({ id }) => {
+    return id !== Number(taskId);
+  });
+  // console.log(tasks);
+  saveData(tasks);
+}
 
 function addMarkup(markup) {
   listEl.insertAdjacentHTML("beforeend", markup);

@@ -3,7 +3,11 @@ const STORAGE_KEY = "items";
 export function onSaveLocalStorage(value) {
   const localStorageArr = onGetData();
   localStorageArr.push(value);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(localStorageArr));
+  saveData(localStorageArr);
+}
+
+export function saveData(value) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
 }
 
 export function onGetData() {
