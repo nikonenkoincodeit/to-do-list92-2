@@ -12,8 +12,6 @@ listEl.addEventListener('click', onListClickUpdateCheck);
 function onListClickDeleteItem(evt) {
   if (!evt.target.classList.contains('button')) return;
 
-  console.log('🚀 ~ file: main.js:13 ~ onListClick ~ id:', id);
-
   const { parent, id } = getParentItem(evt.target);
   parent.remove();
 
