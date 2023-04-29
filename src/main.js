@@ -1,5 +1,5 @@
 import { formEl } from "./refs";
-
+import { createArrayData } from "./api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 
@@ -13,7 +13,8 @@ function onSubmit(event) {
   console.log("123");
   //   const formData = Object.fromEntries(new FormData(event.target));
   //     console.log(formData);
-  createDataObj(value);
+  const items = createDataObj(value);
+  createArrayData(items);
   event.target.reset();
 }
 
