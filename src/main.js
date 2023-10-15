@@ -1,7 +1,9 @@
 import { uid } from 'uid';
-import { formEl } from './refs';
+import { formEl, listEl } from './refs';
 
-import { setToLocalStorage } from './api';
+import { setToLocalStorage, getFromLocalStorage } from './api';
+import { createMarkup } from './markup';
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/style.css';
@@ -17,7 +19,8 @@ function addTask(e) {
   }
   console.log(newTask);
   e.currentTarget.reset();
-  const dataItem = createDataObj(newTask);
+    const dataItem = createDataObj(newTask);
+    createAddMarkup([dataItem]);
   setToLocalStorage(dataItem);
 }
 
@@ -27,4 +30,23 @@ function createDataObj(value) {
     value,
     checked: false,
   };
+  
 }
+
+
+function onLoad() {
+    const state = getFromLocalStorage();
+    if (state.length === 0) return;
+    createAddMarkup(state);
+}
+
+function createAddMarkup(state) {
+    const markup = createMarkup(state);
+    addMarkup(markup);
+}
+
+function addMarkup(markup) {
+    listEl.insertAdjacentHTML('beforeend', markup);
+}
+
+window.addEventListener('load', onLoad);

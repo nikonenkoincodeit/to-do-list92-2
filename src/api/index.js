@@ -1,12 +1,12 @@
 const STORAGE_KEY = 'tu-do-list';
 
 export function setToLocalStorage(str) {
-  const localArr = getToLocalStorage();
+  const localArr = getFromLocalStorage();
   localArr.push(str);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(localArr));
 }
 
-export function getToLocalStorage() {
+export function getFromLocalStorage() {
   try {
     const data = localStorage.getItem(STORAGE_KEY);
     return data ? JSON.parse(data) : [];
