@@ -1,7 +1,8 @@
 import { uid } from 'uid';
 import { formEl, listEl } from './refs';
 
-import { setToLocalStorage, getFromLocalStorage } from './api';
+
+import { setToLocalStorage, getFromLocalStorage, addToLocalStorage } from './api';
 import { createMarkup } from './markup';
 
 
@@ -50,3 +51,15 @@ function addMarkup(markup) {
 }
 
 window.addEventListener('load', onLoad);
+
+listEl.addEventListener('click', onDeleteTask);
+
+function onDeleteTask(event) {
+  if (!event.target.className.includes('button')) return;
+  const elemLi = event.target.closest(".item");
+  const elemId = elemLi.dataset.id;
+  elemLi.remove();
+  const items = getFromLocalStorage();
+  const newItems = items.filter((item) => String(item.id) !== elemId);
+  addToLocalStorage(newItems);
+}

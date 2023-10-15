@@ -3,7 +3,7 @@ const STORAGE_KEY = 'tu-do-list';
 export function setToLocalStorage(str) {
   const localArr = getFromLocalStorage();
   localArr.push(str);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(localArr));
+  addToLocalStorage(localArr);
 }
 
 export function getFromLocalStorage() {
@@ -13,4 +13,8 @@ export function getFromLocalStorage() {
   } catch (error) {
     console.log(error.message);
   }
+}
+
+export function addToLocalStorage(arr) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
 }
