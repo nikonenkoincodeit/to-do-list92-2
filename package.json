@@ -23,6 +23,7 @@
   "dependencies": {
     "bootstrap": "^5.2.0",
     "file-loader": "^6.2.0",
-    "firebase": "^9.16.0"
+    "firebase": "^9.16.0",
+    "uid": "^2.0.2"
   }
 }
