@@ -1,9 +1,12 @@
-import { formEl } from "./refs";
+import { uid } from 'uid';
+import { formEl } from './refs';
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/style.css";
+import { setToLocalStorage } from './api';
 
-formEl.addEventListener("submit", addTask);
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/style.css';
+
+formEl.addEventListener('submit', addTask);
 
 function addTask(e) {
   e.preventDefault();
@@ -14,4 +17,14 @@ function addTask(e) {
   }
   console.log(newTask);
   e.currentTarget.reset();
+  const dataItem = createDataObj(newTask);
+  setToLocalStorage(dataItem);
+}
+
+function createDataObj(value) {
+  return {
+    id: uid(),
+    value,
+    checked: false,
+  };
 }
