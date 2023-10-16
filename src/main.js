@@ -63,3 +63,21 @@ function onDeleteTask(event) {
   const newItems = items.filter((item) => String(item.id) !== elemId);
   addToLocalStorage(newItems);
 }
+
+//був змушений рано покинути заняття і не встиг внести свій внесок до коду. тому вирішив додати відсутню функцію)
+listEl.addEventListener('click', isDone);
+function isDone(event) {
+  if (!event.target.className.includes('text')) return;
+  const elemLi = event.target.closest(".item");
+  const elemId = elemLi.dataset.id;
+  (!elemLi.className.includes('checked') ? elemLi.classList.add('checked') : elemLi.classList.remove('checked'));
+  const items = getFromLocalStorage();
+  const updatedItems = items.map((item) => {
+    if (String(item.id) === elemId) {
+      item.checked = !item.checked;
+    }
+    return item;
+  });
+
+  addToLocalStorage(updatedItems);
+};
