@@ -64,17 +64,18 @@ function onDeleteTask(event) {
   addToLocalStorage(newItems);
 }
 
-//був змушений рано покинути заняття і не встиг внести свій внесок до коду. тому вирішив додати відсутню функцію)
+//був змушений рано покинути заняття і не встиг внести свій внесок до коду. тому вирішив додати відсутню функцію виконання.
+//для відновлення додаткового класса при перезагрузці сторінки змінив відповідну влестивість у маркапі (isDone => checked)
 listEl.addEventListener('click', isDone);
 function isDone(event) {
   if (!event.target.className.includes('text')) return;
   const elemLi = event.target.closest(".item");
   const elemId = elemLi.dataset.id;
-  (!elemLi.className.includes('checked') ? elemLi.classList.add('checked') : elemLi.classList.remove('checked'));
   const items = getFromLocalStorage();
   const updatedItems = items.map((item) => {
     if (String(item.id) === elemId) {
       item.checked = !item.checked;
+      (item.checked)? elemLi.classList.add('checked') : elemLi.classList.remove('checked');
     }
     return item;
   });
