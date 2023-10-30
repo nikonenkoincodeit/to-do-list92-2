@@ -15,10 +15,12 @@ function addTask(e) {
   e.preventDefault();
 
   const newTask = e.currentTarget.elements.message.value.trim();
+
+  
   if (!newTask) {
     return;
   }
-  console.log(newTask);
+  //console.log(newTask);
   e.currentTarget.reset();
     const dataItem = createDataObj(newTask);
     createAddMarkup([dataItem]);
@@ -55,9 +57,12 @@ window.addEventListener('load', onLoad);
 listEl.addEventListener('click', onDeleteTask);
 
 function onDeleteTask(event) {
+
   if (!event.target.className.includes('button')) return;
+  
   const elemLi = event.target.closest(".item");
   const elemId = elemLi.dataset.id;
+  console.log(elemLi.dataset.id)
   elemLi.remove();
   const items = getFromLocalStorage();
   const newItems = items.filter((item) => String(item.id) !== elemId);
